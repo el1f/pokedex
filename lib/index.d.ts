@@ -10,7 +10,14 @@ declare namespace Pokedex {
     name: string;
     height?: number;
     weight?: number;
-    sprites?: {animated?: string; normal?: string};
+    sprites?: {
+      icon: string,
+      sprite: {
+        normal: string,
+        animated?: string,
+      },
+      model?: string,
+    };
     species_id?: number;
     base_experience?: number;
     order?: number;
