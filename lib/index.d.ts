@@ -20,6 +20,8 @@ declare namespace Pokedex {
     };
     species_id?: number;
     base_experience?: number;
+    type: string[];
+    generation: number;
     order?: number;
     is_default?: number;
   }
