@@ -10,7 +10,7 @@ declare namespace Pokedex {
     name: string;
     height?: number;
     weight?: number;
-    sprites?: {
+    sprites: {
       icon: string,
       sprite: {
         normal: string,
