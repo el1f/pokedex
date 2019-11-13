@@ -49,7 +49,7 @@ async function parsePokemonData() {
           false
         )}/normal/${name}.png`
       };
-      resultRow.generation = getGeneration();
+      resultRow.generation = getGeneration(resultRow.id);
       resultRow.type = [];
     });
   
