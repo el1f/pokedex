@@ -3,6 +3,7 @@ const csv = require('csvtojson');
 const pathToPokemonCsv = './data/csv/pokemon.csv';
 const pathToTypesCsv = './data/csv/types.csv';
 const pathToPkmnToTypesCsv = "./data/csv/pokemon_types.csv";
+const pathToPkmnSpeciesCsv = "./data/csv/pokemon_species.csv";
 
 const getGame = (id, isSprite) => {
   if (isSprite && id < 650) {
@@ -13,17 +14,6 @@ const getGame = (id, isSprite) => {
   }
   return 'ultra-sun-ultra-moon';
 };
-
-const getGeneration = (id) => {
-  if (id <= 151) return 1;
-  if (id <= 251) return 2;
-  if (id <= 386) return 3;
-  if (id <= 493) return 4;
-  if (id <= 649) return 5;
-  if (id <= 721) return 6;
-  if (id <= 810) return 7;
-  return 8;
-}
 
 async function parsePokemonData() {
   const pokemon = await csv()
@@ -49,7 +39,6 @@ async function parsePokemonData() {
           false
         )}/normal/${name}.png`
       };
-      resultRow.generation = getGeneration(resultRow.id);
       resultRow.type = [];
     });
   
@@ -60,13 +49,26 @@ async function parsePokemonData() {
   });
   
   const typeConnections = await csv().fromFile(pathToPkmnToTypesCsv);
-
   const typedPokemon = [...pokemon];
 
   typeConnections.map(({ pokemon_id: pkmnId, type_id: typeId, slot }) => {
     if (parseInt(pkmnId) > 1000) return; 
     typedPokemon[parseInt(pkmnId) - 1].type[parseInt(slot - 1)] = types.filter(({id}) => id === typeId)[0].name;
   })
+  
+  // Add the pokémon family to the items
+  const species = await csv().fromFile(pathToPkmnSpeciesCsv);
+  const evolutionChains = species.reduce((chains, species) => {
+    const chainIndex = parseInt(species.evolution_chain_id) - 1;
+    chains[chainIndex] = chains[chainIndex]
+      ? [...chains[chainIndex], species.identifier]
+      : new Array(species.identifier);
+    return chains;
+  }, []);
+
+  species.map(({ id, evolution_chain_id: evoId }) => {
+    typedPokemon[parseInt(id) - 1].family = evolutionChains[parseInt(evoId) - 1].join("->");
+  });
 
   console.log("Writing pokemon data...");
   return new Promise((resolve, reject) => {

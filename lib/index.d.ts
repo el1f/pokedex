@@ -19,6 +19,7 @@ declare namespace Pokedex {
       model?: string,
     };
     species_id?: number;
+    family: string;
     base_experience?: number;
     type: string[];
     generation: number;
