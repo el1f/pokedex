@@ -66,8 +66,9 @@ async function parsePokemonData() {
     return chains;
   }, []);
 
-  species.map(({ id, evolution_chain_id: evoId }) => {
+  species.map(({ id, generation_id: genId, evolution_chain_id: evoId }) => {
     typedPokemon[parseInt(id) - 1].family = evolutionChains[parseInt(evoId) - 1].join("->");
+    typedPokemon[parseInt(id) - 1].generation = parseInt(genId);
   });
 
   console.log("Writing pokemon data...");
