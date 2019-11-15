@@ -23,18 +23,18 @@ async function parsePokemonData() {
       delete resultRow.identifier;
       resultRow.name = name;
       resultRow.sprites = {
-        icon: `http://img.pokemondb.net/sprites/sun-moon/icon/${name}.png`,
+        icon: `https://img.pokemondb.net/sprites/sun-moon/icon/${name}.png`,
         sprite: {
-          normal: `http://img.pokemondb.net/sprites/${getGame(
+          normal: `https://img.pokemondb.net/sprites/${getGame(
             resultRow.id,
             true
           )}/normal/${name}.png`,
-          animated: `http://img.pokemondb.net/sprites/${getGame(
+          animated: `https://img.pokemondb.net/sprites/${getGame(
             resultRow.id,
             true
           )}/anim/normal/${name}.gif`
         },
-        model: `http://img.pokemondb.net/sprites/${getGame(
+        model: `https://img.pokemondb.net/sprites/${getGame(
           resultRow.id,
           false
         )}/normal/${name}.png`
