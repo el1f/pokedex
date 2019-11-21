@@ -806,6 +806,8 @@ id,identifier,species_id,height,weight,base_experience,order,is_default
 805,stakataka,805,55,8200,257,956,1
 806,blacephalon,806,18,130,257,957,1
 807,zeraora,807,15,445,270,958,1
+807,meltan,808,2,80,135,959,1
+808,melmetal,809,25,8000,270,960,1
 10001,deoxys-attack,386,17,608,270,491,0
 10002,deoxys-defense,386,17,608,270,492,0
 10003,deoxys-speed,386,17,608,270,493,0
